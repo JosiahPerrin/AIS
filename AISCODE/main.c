@@ -21,12 +21,13 @@ void main(void) {
     WDTCTL = WDTPW | WDTHOLD;		// Stop watchdog timer
     ConfigureClockModule();
 
-	ConfigureADC();
+	ConfigureADC();                 // ADC configuration
 
-	ConfigureTimerA();
+	ConfigureTimerA();              // Timer configuration
 
-	_enable_interrupts();
+	_enable_interrupts();           //interrupt enabling
 
+	//variables to be declared for function use
 	int light0;
 	int moisture3;
 	int moisture1;
@@ -40,14 +41,33 @@ void main(void) {
 	P2OUT |= BIT0;
 	P2OUT &= ~BIT1;
 
+//WHILE LOOP START
 	while(1) {
 
+    //SENSING SECTION*************************************************************************************
 		Start_Conversion();
 
     	moisture3 = array[0];
     	moisture1 = array[1];
     	moistureReading = moisture3 - moisture1;
     	_nop();
+
+    //PLUMBING SECTION************************************************************************************
+
+
+    //LCD SECTION*****************************************************************************************
+
+        volatile char buttstuff = 'h';
+
+    	               //we need to figure out a way with delays and such, where the strings for our data values are loaded into the buffer
+    	               // I was thinking a for loop that sends individual characters out one at a time, then outside of the for loop
+    	               // there will be say a 5 minutes delay time, and then the while loop will make sure the for loop gets proc'd again
+    	               // after the delay
+
+        WriteDatatoLCD(buttstuff);
+
+    //LIGHTING SECTION************************************************************************************
+
 	}
 
    /* if(moistureReading < MOISTURE_THRESHOLD) {
@@ -73,18 +93,7 @@ void main(void) {
     }
 	*/
 
-//*****************************************************LCD SECTION*************************************************
-	// I know this needs to be in the while loop above on line 43, but using this to work on LCD section separately
-	char buttstuff = 'hello';
-	while (1)
-	       {
-	           //we need to figure out a way with delays and such, where the strings for our data values are loaded into the buffer
-	           // I was thinking a for loop that sends individual characters out one at a time, then outside of the for loop
-	           // there will be say a 5 minutes delay time, and then the while loop will make sure the for loop gets proc'd again
-	           // after the delay
-	        WriteDatatoLCD(buttstuff);
 
-	       }
 }
 
 void ConfigureClockModule()
