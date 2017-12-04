@@ -3,10 +3,11 @@
 #include "ADC.h"
 #include "GPIO.h"
 #include "LCD.h"
+#include "flowmeter.h"
+#include "relay.h"
 
 // Function Prototypes
 void ConfigureClockModule();
-void WaterPlants();
 
 volatile int array[4];
 volatile int MOISTURE_THRESHOLD;
@@ -24,14 +25,20 @@ void main(void) {
 	ConfigureADC();                 // ADC configuration
 
 	ConfigureTimerA();              // Timer configuration
-
+	
+	InitializeRelayPortPins();	// Initialize Relays
+	
+   	InitializeFlowmeter();		// Initialize Flowmeter
+	
 	_enable_interrupts();           //interrupt enabling
-
+	
 	//variables to be declared for function use
 	int light0;
 	int moisture3;
 	int moisture1;
 	unsigned int moistureReading;
+	int pulses = 50;		// sets volume using conversion 333 pulses per 1 litre
+	int numPlants = 4;		// sets number of plants in system
 
 	//set port 2 pins 0 and 1 as outputs
 	P2DIR |= BIT0;
@@ -71,8 +78,9 @@ void main(void) {
 	}
 
    /* if(moistureReading < MOISTURE_THRESHOLD) {
-
-    	WaterPlants();
+	TURN_ON_RELAY1; 		// OPEN PLUMBING VALVE
+    	startFlow(pulses,numPlants); 	// FLOWMETER TRACKING
+    	TURN_OFF_RELAY1; 		// CLOSE PLUMBING VALVE
     }
 
     int i;
@@ -102,9 +110,6 @@ void ConfigureClockModule()
 	DCOCTL  = CALDCO_1MHZ;
 	BCSCTL1 = CALBC1_1MHZ;
 	//BCSCTL1 |= DIVS_3;
-}
-void WaterPlants(){
-
 }
 
 
