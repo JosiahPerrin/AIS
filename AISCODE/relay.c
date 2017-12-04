@@ -1,5 +1,4 @@
 #include "relay.h"
-#include "uart.h"
 #include "flowmeter.h"
 #include "timerA.h"
 
