@@ -22,6 +22,6 @@
 #define READ_FLOWMETER              FLOWMETER_PORT & FLOWMETER_BIT;
 
 void InitializeFlowmeter(void);
-void startFlow(int waterVol,int numPlants);
+void startFlow(int pulses,int numPlants);
 
 #endif /* FLOWMETER_H_ */
