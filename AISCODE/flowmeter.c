@@ -6,9 +6,6 @@
  */
 #include "flowmeter.h"
 #include "timerA.h"
-#include "uart.h"
-
-char buffer[20];
 
 void InitializeFlowmeter(void){
     SET_FLOW_AS_AN_INPUT;
