@@ -3,8 +3,8 @@
 #include "ADC.h"
 #include "GPIO.h"
 #include "LCD.h"
-#include "flowmeter.h"
-#include "relay.h"
+#include "DemoButton.h"
+#include "DemoCode.h"
 
 // Function Prototypes
 void ConfigureClockModule();
@@ -20,25 +20,16 @@ void main(void) {
 	//approach: repeated iterations of one-time multiple channel conversion
 
     WDTCTL = WDTPW | WDTHOLD;		// Stop watchdog timer
-    ConfigureClockModule();
-
+    ConfigureClockModule();         //configure clocks
 	ConfigureADC();                 // ADC configuration
-
 	ConfigureTimerA();              // Timer configuration
-	
-	InitializeRelayPortPins();	// Initialize Relays
-	
-   	InitializeFlowmeter();		// Initialize Flowmeter
-	
 	_enable_interrupts();           //interrupt enabling
-	
+
 	//variables to be declared for function use
-	int light0;
+	/*int light0;
 	int moisture3;
 	int moisture1;
-	unsigned int moistureReading;
-	int pulses = 50;		// sets volume using conversion 333 pulses per 1 litre
-	int numPlants = 4;		// sets number of plants in system
+	unsigned int moistureReading;*/
 
 	//set port 2 pins 0 and 1 as outputs
 	P2DIR |= BIT0;
@@ -51,36 +42,48 @@ void main(void) {
 //WHILE LOOP START
 	while(1) {
 
-    //SENSING SECTION*************************************************************************************
-		Start_Conversion();
 
-    	moisture3 = array[0];
-    	moisture1 = array[1];
-    	moistureReading = moisture3 - moisture1;
-    	_nop();
+//****DEMO CODE FOR FRIDAY DECEMBER 8th*******************************************************************
+
+	    if(READ_DEMOBUTTON == 1){
+	                RunDemo();
+	            }
+	        //End of DEMO CODE
+
+
+
+//****REAL CODE FOR SYSTEM RUNNING************************************************************************
+
+    //SENSING SECTION*************************************************************************************
+		/*Start_Conversion();
+
+    	//moisture3 = array[0];
+    	//moisture1 = array[1];
+    	//moistureReading = moisture3 - moisture1;
+
+    	_nop();*/
 
     //PLUMBING SECTION************************************************************************************
 
 
     //LCD SECTION*****************************************************************************************
 
-        volatile char buttstuff = 'h';
+        //volatile char buttstuff = 'h';
 
     	               //we need to figure out a way with delays and such, where the strings for our data values are loaded into the buffer
     	               // I was thinking a for loop that sends individual characters out one at a time, then outside of the for loop
     	               // there will be say a 5 minutes delay time, and then the while loop will make sure the for loop gets proc'd again
     	               // after the delay
 
-        WriteDatatoLCD(buttstuff);
+        //WriteDatatoLCD(buttstuff);
 
     //LIGHTING SECTION************************************************************************************
 
-	}
+	} //End of REAL CODE and WHILE LOOP
 
    /* if(moistureReading < MOISTURE_THRESHOLD) {
-	TURN_ON_RELAY1; 		// OPEN PLUMBING VALVE
-    	startFlow(pulses,numPlants); 	// FLOWMETER TRACKING
-    	TURN_OFF_RELAY1; 		// CLOSE PLUMBING VALVE
+
+    	WaterPlants();
     }
 
     int i;
@@ -111,5 +114,6 @@ void ConfigureClockModule()
 	BCSCTL1 = CALBC1_1MHZ;
 	//BCSCTL1 |= DIVS_3;
 }
+
 
 
