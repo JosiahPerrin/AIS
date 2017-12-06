@@ -13,7 +13,7 @@
 #define ADC10_ANALOG_INPUT_BIT_1        BIT1
 #define ADC10_ANALOG_INPUT_BIT_2        BIT2
 #define ADC10_ANALOG_INPUT_BIT_3        BIT3
-#define ADC10_ANALOG_INPUT_SELECT       INCH_3
+#define ADC10_ANALOG_INPUT_SELECT       INCH_1
 
 // Prototypes
 void ConfigureADC(void);

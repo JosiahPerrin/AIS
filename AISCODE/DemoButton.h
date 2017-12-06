@@ -12,12 +12,12 @@
 #include <msp430.h>
 
 /*
- * For setting DEMOBUTTON as an input on P2.0
+ * For setting DEMOBUTTON as an input on P2.5
  */
 #define DEMOBUTTON_BIT               BIT5
 #define DEMOBUTTON_PORT              P2IN
 #define DEMOBUTTON_DDR               P2DIR
-#define SET_DEMOBUTTON_AS_AN_INPUT         DEMOBUTTON_DDR &= ~DEMOBUTTON_BIT
+#define SET_DEMOBUTTON_AS_AN_INPUT   DEMOBUTTON_DDR &= ~DEMOBUTTON_BIT
 #define TURN_ON_DEMOBUTTON           DEMOBUTTON_PORT |= DEMOBUTTON_BIT
 #define TURN_OFF_DEMOBUTTON          DEMOBUTTON_PORT &= ~DEMOBUTTON_BIT
 #define READ_DEMOBUTTON              DEMOBUTTON_PORT & DEMOBUTTON_BIT
