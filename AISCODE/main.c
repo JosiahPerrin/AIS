@@ -5,6 +5,7 @@
 #include "LCD.h"
 #include "DemoButton.h"
 #include "DemoCode.h"
+#include "relay.h"
 
 // Function Prototypes
 void ConfigureClockModule();
@@ -13,6 +14,7 @@ volatile int array[4];
 volatile int MOISTURE_THRESHOLD;
 volatile int FULL_LIGHT_THRESHOLD;
 volatile int INTERVALS_FULL_LIGHT;
+volatile int demoOn;
 
 void main(void) {
 
@@ -22,8 +24,10 @@ void main(void) {
     WDTCTL = WDTPW | WDTHOLD;		// Stop watchdog timer
     ConfigureClockModule();         //configure clocks
 	ConfigureADC();                 // ADC configuration
+	InitializeRelayPortPins();      // set relays active
 	ConfigureTimerA();              // Timer configuration
 	_enable_interrupts();           //interrupt enabling
+
 
 	//variables to be declared for function use
 	/*int light0;
@@ -44,8 +48,11 @@ void main(void) {
 
 
 //****DEMO CODE FOR FRIDAY DECEMBER 8th*******************************************************************
+	    SET_DEMOBUTTON_AS_AN_INPUT;
+	    TURN_ON_DEMOBUTTON;
 
-	    if(READ_DEMOBUTTON == 1){
+	    demoOn = READ_DEMOBUTTON; //this function checks the demo button that is from the 3.3V line to pin 2.5 on MSP
+	    if(demoOn >= 1){          //if you want to just run the demo, make this if statement:: if(1){RunDemo();}
 	                RunDemo();
 	            }
 	        //End of DEMO CODE

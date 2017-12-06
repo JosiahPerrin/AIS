@@ -10,10 +10,8 @@
 #ifndef DEMOCODE_H_
 #define DEMOCODE_H_
 
-
-
 void RunDemo(void);
-int ConvertReadingToPercentage(int MRI1, int MRI2);
+int ConvertReadingToPercentage(int MRI1);
 void WaterPlants();
 
 #endif /* DEMOCODE_H_ */
