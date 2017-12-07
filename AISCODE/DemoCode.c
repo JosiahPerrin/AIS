@@ -54,8 +54,8 @@ void RunDemo(void){
     light0 = array[1];
     //STILL NEED****** convert light0 to LightLevel (int to char)
     WriteDatatoLCD(LightLevel);
-    _delay_cycles(500000); //delay for "showing off" if we don't have a delay, lights will cycle almost instantaneously
-    TURN_OFF_RELAY2;
+    _delay_cycles(1000000); //delay for "showing off" if we don't have a delay, lights will cycle almost instantaneously
+    //TURN_OFF_RELAY2;
 
 }
 
@@ -63,10 +63,10 @@ void WaterPlants(){
     int pulses = 50;
     int numplants = 4;
 
-    TURN_ON_RELAY1;
+    //TURN_ON_RELAY1;
     //startFlow(pulses, numplants); //this is turned off for testing purposes - you need actual water to flow for the loop to conclude
-    TURN_OFF_RELAY1;
-    _delay_cycles(1000000); //this delay is just for testing purposes
+    //_delay_cycles(1000000); //this delay is just for testing purposes
+    //TURN_OFF_RELAY1;
 
 }
 

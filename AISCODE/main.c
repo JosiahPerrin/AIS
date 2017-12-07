@@ -52,7 +52,7 @@ void main(void) {
 	    TURN_ON_DEMOBUTTON;
 
 	    demoOn = READ_DEMOBUTTON; //this function checks the demo button that is from the 3.3V line to pin 2.5 on MSP
-	    if(demoOn >= 1){          //if you want to just run the demo, make this if statement:: if(1){RunDemo();}
+	    if(demoOn < 1){          //if you want to just run the demo, make this if statement:: if(1){RunDemo();}
 	                RunDemo();
 	            }
 	        //End of DEMO CODE
