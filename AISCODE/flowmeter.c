@@ -17,6 +17,7 @@ void startFlow(int pulses, int numPlants){
     int pulseCount = 0;
     int lastFlowState, x, i;
     TURN_ON_FLOWMETER;
+    long timercount;
     // Track flow until required pulses are met
     for (i = 0; i < numPlants; i++){
         while(pulseCount < pulses){
@@ -27,6 +28,11 @@ void startFlow(int pulses, int numPlants){
                 pulseCount++;
             }
             lastFlowState = READ_FLOWMETER;
+            timercount++;
+            if(timercount >= 6000000){
+                pulseCount = pulses;
+                timercount = 0;
+            }
         }
         pulseCount = 0;
         // PrintString("\r50 pulse reached\r\n",UART); // used to calibrate with UART

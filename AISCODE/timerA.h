@@ -11,7 +11,11 @@
 #define TA0CCR0_VALUE 1999	// Timer A period is TACCR0+1
 
 // Prototypes
-void ConfigureTimerA(void);
+void ConfigureTimerA0(void);
+void ConfigureTimerA1(void);
 void WaitOneMinute(void);
+void TimeDelay(unsigned int delay, unsigned int resolution);
+void WaitFiveMinutes(void);
+void WaitNMinutes(int n);
 
 #endif
